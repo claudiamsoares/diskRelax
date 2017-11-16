@@ -12,12 +12,6 @@ function [newsensors, varargout] = diskRelax(anchors, distances, varargin)
 %       'epsilon': stop when gradient norm is less than epsilon
 %         [default:1e-6].
 % 
-%   Example: Single source localization
-%   A = [0,0;0,1;1,0;1,1]'; % Anchor positions in 2D
-%   X = [0.5;0.2];
-%   D = dist([A, X]);
-%   D(1:end-1,end) = abs(D(1:end-1,end) + 0.01*randn(size(D(1:end-1,end))));
-%      
   
      
 
