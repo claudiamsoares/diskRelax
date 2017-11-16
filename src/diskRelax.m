@@ -19,7 +19,7 @@ function [newsensors, varargout] = diskRelax(anchors, distances, varargin)
 %   D(1:end-1,end) = abs(D(1:end-1,end) + 0.01*randn(size(D(1:end-1,end))));
 %      
   
-
+     
 
   [MAXITER, epsilon, stopWhenDone, savedata] = decodeVarargin(varargin);
   
@@ -28,6 +28,15 @@ function [newsensors, varargout] = diskRelax(anchors, distances, varargin)
   nrOfSensors = size(distances,2)-nrOfAnchors;
   dim = size(anchors,1);
   
+  
+     %% Protection code
+if max(max(abs(distances-distances'))) > 1e-9 || min(distances(:)) ...
+      < 0
+  error('distance matrix is not correct.')
+end
+
+  %% end of protection code
+
   
 
     %% Lipschitz constant

@@ -9,6 +9,29 @@ nrOfSensors = size(distances,2)-nrOfAnchors;
 MAXITER = 1e3*nrOfSensors;
 dim = size(anchors,1);
 
+  %% Protection code
+if max(max(abs(distances-distances'))) > 1e-9 || min(distances(:)) ...
+      < 0
+  error('Distance matrix is not correct.')
+end
+
+if nrOfSensors < 2
+  error(['Asynchronous operation of a network of agents assumes more ' ...
+         'than 1 agent.']);
+end
+
+A = triu(distances(nrOfAnchors+1:end,nrOfAnchors+1:end));
+nrOfEdges = nnz(A);
+
+if nrOfEdges == 0
+  error(['Asynchronous operation of a network of agents assumes more ' ...
+         'than one edge']);
+end
+  %% end of protection code
+
+
+
+
 %% Lipschitz constant
 %% max degree
 adj = distances>0;
